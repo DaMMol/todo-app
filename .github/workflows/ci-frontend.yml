@@ -1,9 +1,8 @@
 name: frontend checks
 on:
-  push:
-    branches:
-      - frontend/**
   pull_request:
+    paths:
+      - frontend/**
     branches:
       - main
 jobs:

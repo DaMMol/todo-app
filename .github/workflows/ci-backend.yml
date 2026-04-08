@@ -1,9 +1,8 @@
 name: backend checks
 on:
-  push:
-    branches:
-      - backend/**
   pull_request:
+    paths:
+      - backend/**
     branches:
       - main
 jobs:
