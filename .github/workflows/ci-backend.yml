@@ -1,0 +1,107 @@
+name: backend checks
+on:
+  push:
+    branches:
+      - backend/**
+  pull_request:
+    branches:
+      - main
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run typecheck
+        working-directory: ./backend
+        run: npm run typecheck
+
+  formatcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run formatcheck
+        working-directory: ./backend
+        run: npm run formatcheck
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run eslint
+        working-directory: ./backend
+        run: npm run lint
+
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+
+    env:
+      DATABASE_URL: postgres://testuser:testpass@localhost:5432/testdb
+      JWT_SECRET: ${{ vars.JWT_SECRET }}
+      NODE_ENV: ${{ vars.NODE_ENV }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies and build server
+        working-directory: ./backend
+        run: npm install && npm run build
+
+      - name: Wait for Postgres
+        run: |
+          until pg_isready -h localhost -p 5432 -U testuser; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+
+      - name: Run db migrations
+        working-directory: ./backend
+        run: npx knex migrate:latest
+
+      - name: Run backend server
+        working-directory: ./backend
+        run: npm run start &
+
+      - name: Run API tests
+        working-directory: ./backend
+        run: npm run test

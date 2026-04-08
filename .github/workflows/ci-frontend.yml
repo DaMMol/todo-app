@@ -1,0 +1,76 @@
+name: frontend checks
+on:
+  push:
+    branches:
+      - frontend/**
+  pull_request:
+    branches:
+      - main
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run typecheck
+        working-directory: ./frontend
+        run: npm run typecheck
+
+  formatcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run formatcheck
+        working-directory: ./frontend
+        run: npm run formatcheck
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run eslint
+        working-directory: ./frontend
+        run: npm run lint
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run e2e tests
+        working-directory: ./frontend
+        run: npm run test:ci
