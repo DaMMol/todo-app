@@ -96,7 +96,7 @@ jobs:
 
       - name: Run db migrations
         working-directory: ./backend
-        run: npx knex migrate:latest
+        run: NODE_OPTIONS='-r ts-node/register' npx knex --knexfile ./knexfile.ts --env development migrate:latest
 
       - name: Run backend server
         working-directory: ./backend

@@ -3,6 +3,8 @@ import { LoginResponse } from '../src/interfaces/MessageInterfaces';
 import { UserTest } from '../src/interfaces/User';
 import { getUserList, postUser, loginUser, deleteUser } from './userFunctions';
 
+//test
+
 describe('API tests', () => {
   let userData: LoginResponse;
   let userData2: LoginResponse;
