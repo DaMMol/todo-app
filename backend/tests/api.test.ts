@@ -1,9 +1,14 @@
 import app from '../src/app';
 import { LoginResponse } from '../src/interfaces/MessageInterfaces';
 import { UserTest } from '../src/interfaces/User';
+import { db } from '../src/utils/db';
 import { getUserList, postUser, loginUser, deleteUser } from './userFunctions';
 
 describe('API tests', () => {
+  afterAll(async () => {
+    await db.destroy();
+  });
+
   let userData: LoginResponse;
   let userData2: LoginResponse;
 
