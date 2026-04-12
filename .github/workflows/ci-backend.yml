@@ -67,6 +67,11 @@ jobs:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpass
           POSTGRES_DB: testdb
+        options: >-
+          --health-cmd="pg_isready -U testuser" 
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
         ports:
           - 5432:5432
 
@@ -85,13 +90,6 @@ jobs:
       - name: Install dependencies and build server
         working-directory: ./backend
         run: npm install && npm run build
-
-      - name: Wait for Postgres
-        run: |
-          until pg_isready -h localhost -p 5432 -U testuser; do
-            echo "Waiting for Postgres..."
-            sleep 2
-          done
 
       - name: Run db migrations
         working-directory: ./backend
