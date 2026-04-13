@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div className="flex flex-col items-center justify-center pt-8">
-        <h1 className="text-5xl font-sans mb-6 text-center">Todos</h1>
+        <h1 className="text-5xl font-sans mb-6 text-center">Todossss</h1>
         {!userState ? (
           <Link to="/login">
             <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md">
