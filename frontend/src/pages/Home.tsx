@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div className="flex flex-col items-center justify-center pt-8">
-        <h1 className="text-5xl font-sans mb-6 text-center">Test</h1>
+        <h1 className="text-5xl font-sans mb-6 text-center">Todos</h1>
         {!userState ? (
           <Link to="/login">
             <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md">
@@ -68,7 +68,7 @@ const Home = () => {
       {userState && (
         <main className="mt-12 bg-gray-800 p-8 rounded-lg max-w-3xl mx-auto shadow-lg">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">What To-Do?</h2>
+            <h2 className="text-2xl font-semibold">What To-Do??????????</h2>
 
             <button
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
