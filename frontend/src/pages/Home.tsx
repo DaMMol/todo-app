@@ -68,7 +68,7 @@ const Home = () => {
       {userState && (
         <main className="mt-12 bg-gray-800 p-8 rounded-lg max-w-3xl mx-auto shadow-lg">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">What To-Do???</h2>
+            <h2 className="text-2xl font-semibold">What To-Do?</h2>
 
             <button
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
